@@ -16,7 +16,8 @@
     </div>
     <style>
         html {
-            background: #018DED url(http://unsplash.it/1500/1000?image=881&blur=5);
+            background: #018DED url(https://media.macphun.com/img/uploads/macphun/blog/1247/christmasphoto.jpg);
+            /* background: #018DED url(http://unsplash.it/1500/1000?image=881&blur=5); */
             background-size: cover;
             font-family: 'helvetica neue';
             text-align: center;
@@ -35,7 +36,7 @@
         .clock {
             width: 30rem;
             height: 30rem;
-            border: 20px solid white;
+            border: 20px solid black;
             border-radius: 50%;
             margin: 50px auto;
             position: relative;
@@ -54,13 +55,27 @@
         .hand {
             width: 50%;
             height: 6px;
-            background: black;
             position: absolute;
             top: 50%;
             transform-origin: 100%;
             transform: rotate(90deg);
             transition: all 0.05s;
             transition-timing-function: cubic-bezier(0.5, 2.5, 0.5, 1);
+        }
+        
+        .hour-hand {
+            background: white;
+            border: 1px solid black;
+        }
+        
+        .min-hand {
+            background: greenyellow;
+            border: 1px solid black;
+        }
+        
+        .second-hand {
+            background: red;
+            border: 1px solid black;
         }
     </style>
     <script>
