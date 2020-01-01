@@ -17,54 +17,45 @@
         </ul>
     </form>
     <script>
+        function fetchData(endpoint) {
+            let out = [];
+            fetch(endpoint)
+                .then(res => res.json())
+                .then(data => out.push(...data))
+                .catch(err => console.log(err))
+            return out;
+        }
+
+        function clearList() {
+            while (suggestionList.firstChild) {
+                suggestionList.removeChild(suggestionList.firstChild);
+            }
+        }
+
         function findmatches(characters, cities) {
             return cities.filter(location => {
                 const regex = new RegExp(characters, 'gi');
                 return location.city.match(regex) || location.state.match(regex);
             })
         }
-
-        const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
-
-        const cities = [];
-
-        fetch(endpoint)
-            .then(res => res.json())
-            .then(data => cities.push(...data))
-            .catch(err => console.log(err))
-
-        const searchField = document.querySelector('.search');
-
-        const suggestionList = document.querySelector('.suggestions');
-
-        searchField.addEventListener('keydown', searchForCities);
-
-        async function clearList() {
-            while (suggestionList.firstChild) {
-                suggestionList.removeChild(suggestionList.firstChild);
+        async function searchForCities() {
+            const text = this.value;
+            await clearList();
+            if (text) {
+                const validCities = await findmatches(text, cities);
+                validCities.forEach(cityObj => {
+                    const nodeString = `${cityObj.city} ${cityObj.state} ${cityObj.population}`
+                    let li = document.createElement("li");
+                    li.appendChild(document.createTextNode(nodeString));
+                    suggestionList.appendChild(li)
+                });
             }
         }
-
-        async function searchForCities() {
-            await clearList();
-            // first, grab the data from the input field
-            const text = this.value;
-            // then return the list of cities that match
-            const validCities = await findmatches(text, cities);
-            // then construct a list of nodes
-            const nodeList = await validCities.map(cityObj => {
-                const name = cityObj.city
-                const state = cityObj.state;
-                const population = cityObj.population;
-                const nodeString = `${name} ${state} ${population}`
-                let li = document.createElement("li");
-                li.appendChild(document.createTextNode(nodeString));
-                return li;
-            });
-
-            nodeList.forEach(node => suggestionList.appendChild(node));
-
-        }
+        const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+        const cities = fetchData(endpoint);
+        const searchField = document.querySelector('.search');
+        const suggestionList = document.querySelector('.suggestions');
+        searchField.addEventListener('keydown', searchForCities);
     </script>
 </body>
 
