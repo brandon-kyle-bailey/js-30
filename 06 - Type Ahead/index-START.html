@@ -20,7 +20,7 @@
         function findmatches(characters, cities) {
             return cities.filter(location => {
                 const regex = new RegExp(characters, 'gi');
-                return location.city.match(regex) || place.state.match(regex);
+                return location.city.match(regex) || location.state.match(regex);
             })
         }
 
@@ -32,6 +32,39 @@
             .then(res => res.json())
             .then(data => cities.push(...data))
             .catch(err => console.log(err))
+
+        const searchField = document.querySelector('.search');
+
+        const suggestionList = document.querySelector('.suggestions');
+
+        searchField.addEventListener('keydown', searchForCities);
+
+        async function clearList() {
+            while (suggestionList.firstChild) {
+                suggestionList.removeChild(suggestionList.firstChild);
+            }
+        }
+
+        async function searchForCities() {
+            await clearList();
+            // first, grab the data from the input field
+            const text = this.value;
+            // then return the list of cities that match
+            const validCities = await findmatches(text, cities);
+            // then construct a list of nodes
+            const nodeList = await validCities.map(cityObj => {
+                const name = cityObj.city
+                const state = cityObj.state;
+                const population = cityObj.population;
+                const nodeString = `${name} ${state} ${population}`
+                let li = document.createElement("li");
+                li.appendChild(document.createTextNode(nodeString));
+                return li;
+            });
+
+            nodeList.forEach(node => suggestionList.appendChild(node));
+
+        }
     </script>
 </body>
 
