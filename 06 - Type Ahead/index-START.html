@@ -44,9 +44,22 @@
             if (text) {
                 const validCities = await findmatches(text, cities);
                 validCities.forEach(cityObj => {
-                    const nodeString = `${cityObj.city} ${cityObj.state} ${cityObj.population}`
+                    // create the li element
                     let li = document.createElement("li");
-                    li.appendChild(document.createTextNode(nodeString));
+
+                    // create name span
+                    let spanName = document.createElement("span")
+                    spanName.className = 'name';
+                    spanName.appendChild(document.createTextNode(`${cityObj.city}, ${cityObj.state}`));
+
+                    // create population span
+                    let popSpan = document.createElement("span")
+                    popSpan.className = 'population';
+                    popSpan.appendChild(document.createTextNode(`${cityObj.population}`));
+
+                    li.appendChild(spanName);
+                    li.appendChild(popSpan);
+
                     suggestionList.appendChild(li)
                 });
             }
@@ -55,7 +68,7 @@
         const cities = fetchData(endpoint);
         const searchField = document.querySelector('.search');
         const suggestionList = document.querySelector('.suggestions');
-        searchField.addEventListener('keydown', searchForCities);
+        searchField.addEventListener('keyup', searchForCities);
     </script>
 </body>
 
