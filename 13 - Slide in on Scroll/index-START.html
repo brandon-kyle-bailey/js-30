@@ -109,6 +109,17 @@
 
         function checkSlide(e) {
 
+            sliderImages.forEach((img) => {
+                const slideInAt = (window.scrollY + window.innerHeight) - img.height / 2;
+                const imgBottom = img.offsetTop + img.height;
+                const isHalfShown = slideInAt > img.offsetTop;
+                const isNotScrolledPast = window.scrollY < imgBottom;
+                if (isHalfShown && isNotScrolledPast) {
+                    img.classList.add('active');
+                } else {
+                    img.classList.remove('active');
+                }
+            });
         }
 
         // window.addEventListener('scroll', checkSlide);
@@ -158,7 +169,7 @@
         
         .slide-in {
             opacity: 0;
-            transition: all .5s;
+            transition: all .7s ease-in-out;
         }
         
         .align-left.slide-in {
