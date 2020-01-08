@@ -28,7 +28,7 @@
 
         // Why? It's because that is an array reference, not an array copy. They both point to the same array!
 
-        // So, how do we fix this? We take a copy instead!
+        // So, how do we fix this? We take a copy instead! 
 
         // one way
 
@@ -47,6 +47,9 @@
         };
 
         // and think we make a copy:
+        const newPerson = Object.assign({}, person, {
+            age: 18
+        });
 
         // how do we take a copy instead?
 
