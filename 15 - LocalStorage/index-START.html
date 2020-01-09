@@ -63,7 +63,12 @@
         }
 
         function toggleDone(e) {
-            console.log(e);
+            // event delegation
+            if (!e.target.matches('input')) return;
+            const idx = e.target.dataset.index;
+            items[idx].done = !items[idx].done;
+            addToStorage(items);
+            populateList(items, itemsList);
         }
 
         addItems.addEventListener('submit', addItem);
