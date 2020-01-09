@@ -35,6 +35,13 @@
         function addItem(e) {
             e.preventDefault();
 
+            // const text = (this.querySelector('[name=item]')).value;
+            const text = e.target[0].value;
+
+            const item = {
+                text,
+                done: false
+            }
 
         }
 
