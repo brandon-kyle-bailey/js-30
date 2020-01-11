@@ -52,11 +52,7 @@
         function strip(band) {
             return band.replace(/^(a |the |an )/i, '').trim();
         }
-
-        const sortedBands = bands.sort((a, b) => {
-            return strip(a) > strip(b) ? 1 : -1;
-        })
-
+        const sortedBands = bands.sort((a, b) => strip(a) > strip(b) ? 1 : -1);
         const bandList = document.querySelector('#bands');
         bandList.innerHTML = sortedBands.map(band => `<li>${band}</li>`).join('');
     </script>
