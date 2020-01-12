@@ -186,10 +186,10 @@
     <script>
         const timeNodes = [...document.querySelectorAll('[data-time]')];
 
-        const rawSeconds = timeNodes.map(node => {
+        const rawSeconds = timeNodes.reduce((total, node) => {
             const [rawMins, rawSecs] = node.dataset.time.split(':').map(parseFloat);
-            return (rawMins * 60) + rawSecs;
-        }).reduce((total, seconds) => total + seconds);
+            return total + ((rawMins * 60) + rawSecs);
+        }, 0);
 
         let seconds = rawSeconds;
 
