@@ -35,3 +35,6 @@ function takePhoto() {
 
 
 getVideo();
+
+
+video.addEventListener('canplay', paintToCanvas);
