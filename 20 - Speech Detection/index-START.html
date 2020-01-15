@@ -21,6 +21,12 @@
         let p = document.createElement('p');
 
         words.appendChild(p);
+
+        recognition.addEventListener('result', e => {
+            console.log(e);
+        });
+
+        recognition.start();
     </script>
 
 
