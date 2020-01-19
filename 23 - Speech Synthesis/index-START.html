@@ -50,6 +50,13 @@
         }
 
         speechSynthesis.addEventListener('voiceschanged', populateVoices);
+
+        speakButton.addEventListener('click', () => speechSynthesis.speak(msg));
+        stopButton.addEventListener('click', () => {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.cancel(msg);
+            }
+        });
     </script>
 
 </body>
