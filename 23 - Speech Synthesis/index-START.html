@@ -51,17 +51,21 @@
 
         function setVoice() {
             msg.voice = voices.find(voice => voice.name === this.value);
+            cancelVoice();
+            speechSynthesis.speak(msg);
+        }
+
+        function cancelVoice() {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+            }
         }
 
         speechSynthesis.addEventListener('voiceschanged', populateVoices);
         voicesDropdown.addEventListener('change', setVoice);
 
         speakButton.addEventListener('click', () => speechSynthesis.speak(msg));
-        stopButton.addEventListener('click', () => {
-            if (speechSynthesis.speaking) {
-                speechSynthesis.cancel(msg);
-            }
-        });
+        stopButton.addEventListener('click', cancelVoice);
     </script>
 
 </body>
