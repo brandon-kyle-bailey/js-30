@@ -48,7 +48,7 @@
 
             highlight.style.width = `${width}px`
             highlight.style.height = `${height}px`
-            highlight.style.transform = `translate(${left}px, ${top}px)`;
+            highlight.style.transform = `translate(${left+window.scrollX}px, ${top+window.scrollY}px)`;
 
         }
 
