@@ -61,11 +61,18 @@
             }
         }
 
+        function setOption() {
+            msg[this.name] = this.value;
+            cancelVoice();
+            speechSynthesis.speak(msg);
+        }
+
         speechSynthesis.addEventListener('voiceschanged', populateVoices);
         voicesDropdown.addEventListener('change', setVoice);
 
         speakButton.addEventListener('click', () => speechSynthesis.speak(msg));
         stopButton.addEventListener('click', cancelVoice);
+        options.forEach(option => option.addEventListener('change', setOption));
     </script>
 
 </body>
