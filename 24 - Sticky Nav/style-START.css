@@ -74,6 +74,7 @@ li.logo {
     transition: all .5s;
     font-weight: 600;
     font-size: 30px;
+    transition: min-width .2s;
 }
 
 li.logo a {
@@ -87,4 +88,12 @@ nav a {
     color: white;
     transition: all 0.2s;
     text-transform: uppercase;
+}
+
+#main {
+    position: sticky;
+}
+
+.show-logo {
+    box-shadow: 0 5px 0 rgba(0, 0, 0, 0.1);
 }
