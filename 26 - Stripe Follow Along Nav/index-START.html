@@ -238,8 +238,17 @@
             setTimeout(() => this.classList.add('trigger-enter-active'), 150);
             background.classList.add('open');
 
-            const dropdown = this.querySelector('dropdown');
+            const dropdown = this.querySelector('.dropdown');
             const dropdownCoords = dropdown.getBoundingClientRect();
+            const navCoords = nav.getBoundingClientRect();
+
+            const coords = {
+                width: dropdownCoords.width,
+                height: dropdownCoords.height
+            };
+
+            background.style.setProperty('width', `${coords.width}px`);
+            background.style.setProperty('height', `${coords.height}px`);
 
         }
 
