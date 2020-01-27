@@ -1,5 +1,4 @@
 function timer(seconds) {
-    setInterval(function() {
-        seconds--;
-    }, 1000);
+    const now = Date.now();
+    const then = now * seconds * 1000;
 }
