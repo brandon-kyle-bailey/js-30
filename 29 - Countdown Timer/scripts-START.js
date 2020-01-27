@@ -1,5 +1,7 @@
 let countdown;
 const timerDisplay = document.querySelector('.display__time-left');
+const endTime = document.querySelector('.display__end-time');
+
 
 function timer(seconds) {
 
@@ -9,6 +11,7 @@ function timer(seconds) {
     const then = now + seconds * 1000;
 
     displayTimeLeft(seconds);
+    displayEndTime(then);
 
     countdown = setInterval(() => {
 
@@ -23,12 +26,23 @@ function timer(seconds) {
 }
 
 function displayTimeLeft(seconds) {
-    const minutes = Math.floor(seconds / 60);
-    const remainderSeconds = seconds % 60;
-    const display = `${minutes}:${remainderSeconds < 10 ? '0' : ''}${remainderSeconds}`;
+    let tempSeconds = seconds;
+    const hours = Math.floor(tempSeconds / 3600);
+    tempSeconds %= 3600;
+    const minutes = Math.floor(tempSeconds / 60);
+    tempSeconds %= 60;
+    const remainderSeconds = tempSeconds % 60;
+    const display = `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}:${remainderSeconds < 10 ? '0' : ''}${remainderSeconds}`;
     timerDisplay.textContent = display;
-
-
+    document.title = display;
 
     console.log(seconds);
+}
+
+function displayEndTime(timestamp) {
+    const end = new Date(timestamp);
+    const hour = end.getHours();
+    const minutes = end.getMinutes();
+
+    endTime.textContent = `Be Back at ${hour < 10 ? '0' : ''}${hour}:${minutes < 10 ? '0' : ''}${minutes}`;
 }
